@@ -11,4 +11,4 @@
 #
 # ==============================================================================
 
-oc cluster up --host-data-dir=/var/lib/origin/data --use-existing-config
+oc cluster up --metrics=true --host-data-dir=/var/lib/origin/data --use-existing-config

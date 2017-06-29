@@ -10,4 +10,4 @@ REM cluster_up
 REM
 REM ==============================================================================
 
-oc cluster up --host-data-dir=/var/lib/origin/data --use-existing-config
+oc cluster up --metrics --host-data-dir=/var/lib/origin/data --use-existing-config
