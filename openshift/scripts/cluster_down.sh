@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # ==============================================================================
 # Script for taking down an OpenShift cluter in Docker for Windows
@@ -6,8 +6,9 @@
 # * Requires the OpenShift Origin CLI
 # ------------------------------------------------------------------------------
 #
-# USAGE:  
-# cluster_down
+# Usage on Windows:
+#  
+# ./cluster_down
 #
 # ==============================================================================
 

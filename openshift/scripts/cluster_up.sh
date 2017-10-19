@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # ==============================================================================
 # Script for setting up an OpenShift cluter in Docker for Windows
@@ -6,8 +6,9 @@
 # * Requires the OpenShift Origin CLI
 # ------------------------------------------------------------------------------
 #
-# USAGE:  
-# cluster_up
+# Usage on WIndows:
+#  
+# MSYS_NO_PATHCONV=1 ./cluster_up.sh
 #
 # ==============================================================================
 
