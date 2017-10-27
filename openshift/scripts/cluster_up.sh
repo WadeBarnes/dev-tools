@@ -8,8 +8,8 @@
 #
 # Usage on WIndows:
 #  
-# MSYS_NO_PATHCONV=1 ./cluster_up.sh
+# ./cluster_up.sh
 #
 # ==============================================================================
-
+export MSYS_NO_PATHCONV=1
 oc cluster up --metrics=true --host-data-dir=/var/lib/origin/data --use-existing-config
