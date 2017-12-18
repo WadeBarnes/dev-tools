@@ -11,11 +11,12 @@ usage() {
   cat <<-EOF
   Runs a given docker image.
 
-  Usage: ${0} [ -h ] -n <imagename>
+  Usage: ${0} [ -h -p] -n <imagename>
 
   OPTIONS:
   ========
     -h prints the usage for the script
+    -p Give extended privileges to this container
     -n the name of the image
 
 EOF
@@ -25,9 +26,10 @@ exit
 # -----------------------------------------------------------------------------------------------------------------
 # Initialization:
 # -----------------------------------------------------------------------------------------------------------------
-while getopts n:h FLAG; do
+while getopts n:ph FLAG; do
   case $FLAG in
     n ) IMAGE=$OPTARG ;;
+    p) PRIVILEGED=--privileged;;
     h ) usage ;;
     \?) #unrecognized option - show help
       echo -e \\n"Invalid script option"\\n
@@ -44,4 +46,4 @@ fi
 # =================================================================================================================
 
 echo -e "\nStarting ${IMAGE} ...\n"
-docker run -d ${IMAGE} --name ${IMAGE}
+docker run ${PRIVILEGED} -d ${IMAGE} --name ${IMAGE}
