@@ -46,4 +46,4 @@ fi
 # =================================================================================================================
 
 echo -e "\nStarting ${IMAGE} ...\n"
-docker run ${PRIVILEGED} -d ${IMAGE} --name ${IMAGE}
+docker run ${PRIVILEGED} --name ${IMAGE} -d ${IMAGE} 
