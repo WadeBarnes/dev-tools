@@ -21,8 +21,8 @@ usage() {
       Open a bash shell in a running container.
 
     -i <imagename>
-      Start a 
-
+      Start an image and open a bash shell.
+      The container will be automatically removed on exit.
 EOF
 exit
 }
