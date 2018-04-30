@@ -9,14 +9,19 @@ export MSYS_NO_PATHCONV=1
 # -----------------------------------------------------------------------------------------------------------------
 usage() {
   cat <<-EOF
-  Opens a bash shell in a given container.
+  Opens a bash shell in a given container or image.
 
-  Usage: ${0} [ -h ] -n <containername>
+  Usage: ${0} [ -h ] [-c <containername> -i <imagename>] 
 
   OPTIONS:
   ========
     -h prints the usage for the script
-    -n the name of the container
+
+    -c <containername>
+      Open a bash shell in a running container.
+
+    -i <imagename>
+      Start a 
 
 EOF
 exit
@@ -25,9 +30,10 @@ exit
 # -----------------------------------------------------------------------------------------------------------------
 # Initialization:
 # -----------------------------------------------------------------------------------------------------------------
-while getopts n:h FLAG; do
+while getopts c:i:h FLAG; do
   case $FLAG in
-    n ) CONTAINER=$OPTARG ;;
+    c ) CONTAINER=$OPTARG ;;
+    i ) IMAGE=$OPTARG ;;
     h ) usage ;;
     \?) #unrecognized option - show help
       echo -e \\n"Invalid script option"\\n
@@ -38,10 +44,17 @@ done
 
 shift $((OPTIND-1))
 
-if [ -z "${CONTAINER}" ]; then
+if [ -z "${CONTAINER}" ] && [ -z "${IMAGE}" ]; then
   usage
 fi
 # =================================================================================================================
 
-echo -e "\nOpening a bash shell to ${CONTAINER} ...\n"
-winpty docker exec -it ${CONTAINER} bash
+if [ ! -z "${CONTAINER}" ]; then
+  echo -e "\nOpening a bash shell to ${CONTAINER} ...\n"
+  winpty docker exec -it ${CONTAINER} bash
+fi
+
+if [ ! -z "${IMAGE}" ]; then
+  echo -e "\nOpening a bash shell to ${IMAGE} ...\n"
+  winpty docker run --rm -it --name ${IMAGE} ${IMAGE} bash
+fi
