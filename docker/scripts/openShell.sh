@@ -63,5 +63,5 @@ fi
 
 if [ ! -z "${IMAGE}" ]; then
   echo -e "\nOpening a '${SHELL_CMD}' shell to ${IMAGE} ...\n"
-  winpty docker run --rm -it --name ${IMAGE} ${IMAGE} ${SHELL_CMD}
+  winpty docker run --rm -it --name $(echo ${IMAGE} | sed 's~\(^.*\):.*$~\1~;s~\(/\|\\\)~\.~g;') ${IMAGE} ${SHELL_CMD}
 fi
