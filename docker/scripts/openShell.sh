@@ -63,5 +63,6 @@ fi
 
 if [ ! -z "${IMAGE}" ]; then
   echo -e "\nOpening a '${SHELL_CMD}' shell to ${IMAGE} ...\n"
-  winpty docker run --rm -it --name $(echo ${IMAGE} | sed 's~\(^.*\):.*$~\1~;s~\(/\|\\\)~\.~g;') ${IMAGE} ${SHELL_CMD}
+  # Override the entrypoint otherwise we could just be trying to issue a command via the container's entrypoint.
+  winpty docker run --rm -it --name $(echo ${IMAGE} | sed 's~\(^.*\):.*$~\1~;s~\(/\|\\\)~\.~g;') --entrypoint ${SHELL_CMD} ${IMAGE} 
 fi
