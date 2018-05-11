@@ -11,12 +11,13 @@ usage() {
   cat <<-EOF
   Lists all docker containers and images.
 
-  Usage: ${0} [ -h -i -c]
+  Usage: ${0} [ -h -i -c -a]
 
   OPTIONS:
   ========
     -c only list containers
     -i only list images
+    -a list all images
     -h prints the usage for the script
 
 EOF
@@ -26,10 +27,11 @@ exit
 # -----------------------------------------------------------------------------------------------------------------
 # Initialization:
 # -----------------------------------------------------------------------------------------------------------------
-while getopts ich FLAG; do
+while getopts icah FLAG; do
   case $FLAG in
     c ) CONTAINERS=1 ;;
     i ) IMAGES=1 ;;
+    a ) ARGS="-a" ;;
     h ) usage ;;
     \?) #unrecognized option - show help
       echo -e \\n"Invalid script option"\\n
@@ -59,6 +61,6 @@ if [ ! -z "${IMAGES}" ]; then
   echo
   echo "Images:"
   echo "--------------------------------------------------------------------------------------------------------------------------------------------------------------"
-  docker images -a
+  docker images ${ARGS}
   echo "--------------------------------------------------------------------------------------------------------------------------------------------------------------"
 fi
