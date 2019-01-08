@@ -79,7 +79,8 @@ param(
 # Install Chocolatey
 if( !(Is-Chocolatey-Installed) ) {
   if ( Install-NeededFor 'chocolatey' ) {
-    iex ((new-object net.webclient).DownloadString("http://chocolatey.org/install.ps1")) 
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;
+    iex ((new-object net.webclient).DownloadString("https://chocolatey.org/install.ps1")) 
   }
 }
 
