@@ -36,15 +36,27 @@ echo This script can be added to your project and the defaults modified to use
 echo your custom configuration by default.
 echo.
 echo USAGE:
-echo %1 ^<config/^>
-echo * Where; ^<config/^> is the name of the configuration file to use for setting
-echo   up the environment.  Defaults to the setting defined by DEFAULT_CHOCO_CONFIG.
-echo   The scripts expect the configuration file to use the following location and
-echo   naming conventions;
-echo     * .\config\^<config/^>.config
-echo   Configuration files are expected to be in Chocolatey package file format.
-echo   Refer to the examples for details;
-echo     * https://github.com/WadeBarnes/dev-tools/tree/master/chocolatey/config
+echo   %1 ^<config/^>
+echo   * Where; ^<config/^> is the name of the configuration file to use for setting
+echo     up the environment.  Defaults to the setting defined by DEFAULT_CHOCO_CONFIG.
+echo     The scripts expect the configuration file to use the following location and
+echo     naming conventions;
+echo       * .\config\^<config/^>.config
+echo     Configuration files are expected to be in Chocolatey package file format.
+echo     Refer to the examples for details;
+echo       * https://github.com/WadeBarnes/dev-tools/tree/master/chocolatey/config
+echo.
+echo Troubleshooting:
+echo   If this script is unable to download it's script dependancies you will need to 
+echo   manually copy the following scripts and renames them as follows:
+echo.
+echo     Download copies of:
+echo       %URL%%SOURCE_BATCH%
+echo       %URL%%SOURCE_BATCH%
+echo.
+echo     Copy and rename them to:
+echo       %DIR%%DEST_BATCH%
+echo       %DIR%%DEST_PS%
 echo.
 echo ==============================================================================
 exit /B 0
