@@ -3,6 +3,12 @@ SCRIPT_DIR=$(dirname $0)
 SCRIPTS_DIR="${SCRIPT_DIR}/scripts"
 export MSYS_NO_PATHCONV=1
 
+# Running on Windows?
+if [[ "$OSTYPE" == "msys" ]]; then
+  # Prefix interactive terminal commands ...
+  terminalEmu="winpty"
+fi
+
 # =================================================================================================================
 # Usage:
 # -----------------------------------------------------------------------------------------------------------------
@@ -58,11 +64,11 @@ fi
 
 if [ ! -z "${CONTAINER}" ]; then
   echo -e "\nOpening a '${SHELL_CMD}' shell to ${CONTAINER} ...\n"
-  winpty docker exec -it ${CONTAINER} ${SHELL_CMD}
+  ${terminalEmu} docker exec -it ${CONTAINER} ${SHELL_CMD}
 fi
 
 if [ ! -z "${IMAGE}" ]; then
   echo -e "\nOpening a '${SHELL_CMD}' shell to ${IMAGE} ...\n"
   # Override the entrypoint otherwise we could just be trying to issue a command via the container's entrypoint.
-  winpty docker run --rm -it --name $(echo ${IMAGE} | sed 's~\(^.*\):.*$~\1~;s~\(/\|\\\)~\.~g;') --entrypoint ${SHELL_CMD} ${IMAGE} 
+  ${terminalEmu} docker run --rm --net host -it --name $(echo ${IMAGE} | sed 's~\(^.*\):.*$~\1~;s~\(/\|\\\)~\.~g;') --entrypoint ${SHELL_CMD} ${IMAGE} 
 fi
