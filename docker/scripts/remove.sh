@@ -50,28 +50,6 @@ if [ -z "${IMAGES}" ] && [ -z "${CONTAINERS}" ]; then
 fi
 # =================================================================================================================
 
-if [ ! -z "${IMAGES}" ]; then
-  if [ ! -z "${ALL}" ]; then
-    # Remove all images
-    _images=$(docker images -a -q)
-    if [ ! -z "${_images}" ]; then
-      echo -e "\nRemoving all images ...\n"
-      docker rmi ${_images} ${FORCE}
-    else
-      echo -e "\nNo images to remove ...\n"    
-    fi
-  else
-    # Remove dangling images
-    _images=$(docker images -f dangling=true -q)
-    if [ ! -z "${_images}" ]; then
-      echo -e "\nRemoving dangling images ...\n"
-      docker rmi ${_images} ${FORCE}
-    else
-      echo -e "\nNo dangling images to remove ...\n"    
-    fi
-  fi  
-fi
-
 if [ ! -z "${CONTAINERS}" ]; then
   if [ ! -z "${ALL}" ]; then
     # Stop and remove ALL containers
@@ -94,5 +72,27 @@ if [ ! -z "${CONTAINERS}" ]; then
     else
       echo -e "\nNo exited containers to remove ...\n"    
     fi  
+  fi  
+fi
+
+if [ ! -z "${IMAGES}" ]; then
+  if [ ! -z "${ALL}" ]; then
+    # Remove all images
+    _images=$(docker images -a -q)
+    if [ ! -z "${_images}" ]; then
+      echo -e "\nRemoving all images ...\n"
+      docker rmi ${_images} ${FORCE}
+    else
+      echo -e "\nNo images to remove ...\n"    
+    fi
+  else
+    # Remove dangling images
+    _images=$(docker images -f dangling=true -q)
+    if [ ! -z "${_images}" ]; then
+      echo -e "\nRemoving dangling images ...\n"
+      docker rmi ${_images} ${FORCE}
+    else
+      echo -e "\nNo dangling images to remove ...\n"    
+    fi
   fi  
 fi
