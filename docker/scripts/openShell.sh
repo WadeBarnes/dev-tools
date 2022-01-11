@@ -29,6 +29,10 @@ usage() {
       Start an image and open a shell.
       The container will be automatically removed on exit.
 
+    -v <volume>
+      Bind mount a volume.  Only availble with the '-i' option.
+      Define in the same way you would with the docker run command.
+
     -s <shell>
       The shell to use; bash, sh, etc.  Defaults to bash
 EOF
@@ -38,11 +42,12 @@ exit
 # -----------------------------------------------------------------------------------------------------------------
 # Initialization:
 # -----------------------------------------------------------------------------------------------------------------
-while getopts c:i:s:h FLAG; do
+while getopts c:i:s:v:h FLAG; do
   case $FLAG in
     c ) CONTAINER=$OPTARG ;;
     i ) IMAGE=$OPTARG ;;
     s ) SHELL_CMD=$OPTARG ;;
+    v ) VOLUME_OPT="-v $OPTARG" ;;
     h ) usage ;;
     \?) #unrecognized option - show help
       echo -e \\n"Invalid script option"\\n
@@ -70,5 +75,5 @@ fi
 if [ ! -z "${IMAGE}" ]; then
   echo -e "\nOpening a '${SHELL_CMD}' shell to ${IMAGE} ...\n"
   # Override the entrypoint otherwise we could just be trying to issue a command via the container's entrypoint.
-  ${terminalEmu} docker run --rm --net host -it --name $(echo ${IMAGE} | sed 's~\(^.*\):.*$~\1~;s~\(/\|\\\)~\.~g;') --entrypoint ${SHELL_CMD} ${IMAGE} 
+  ${terminalEmu} docker run --rm --net host -it ${VOLUME_OPT} --name $(echo ${IMAGE} | sed 's~\(^.*\):.*$~\1~;s~\(/\|\\\)~\.~g;') --entrypoint ${SHELL_CMD} ${IMAGE} 
 fi
